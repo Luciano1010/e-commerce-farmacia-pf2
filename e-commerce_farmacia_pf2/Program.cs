@@ -1,5 +1,10 @@
 
 using e_commerce_farmacia_pf2.Data;
+using e_commerce_farmacia_pf2.Model;
+using e_commerce_farmacia_pf2.Service;
+using e_commerce_farmacia_pf2.Service.Implementes;
+using e_commerce_farmacia_pf2.Validator;
+using FluentValidation;
 using Microsoft.EntityFrameworkCore;
 
 namespace e_commerce_farmacia_pf2
@@ -21,9 +26,13 @@ namespace e_commerce_farmacia_pf2
             var connecetionString = builder.Configuration
                .GetConnectionString("DefaultConnection");
             builder.Services.AddDbContext<AppDbContext>(options =>
-                options.UseSqlServer(connecetionString));
+            options.UseSqlServer(connecetionString));
 
+            builder.Services.AddTransient<IValidator<Produto>, ProdutoValidator>(); // transiente ele guarda informações somente quando aplicação estiver funcionando
+          //  builder.Services.AddTransient<IValidator<Categoria>, CategoriaValidator>();
 
+            builder.Services.AddScoped<IProdutoService, ProdutoService>(); // scoped ele guarda mesmo que aplicação fecha
+           
 
 
             builder.Services.AddEndpointsApiExplorer();

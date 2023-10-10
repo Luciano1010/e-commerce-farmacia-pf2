@@ -29,6 +29,7 @@ namespace e_commerce_farmacia_pf2.Validator
                     .MaximumLength(5000);
 
             RuleFor(p => p.Quantidade)
+                    .MinimumLength(2)
                     .MaximumLength(5000);
 
         }
