@@ -1,5 +1,6 @@
 ﻿using e_commerce_farmacia_pf2.Model;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace e_commerce_farmacia_pf2.Data
 {
@@ -20,8 +21,29 @@ namespace e_commerce_farmacia_pf2.Data
                 .OnDelete(DeleteBehavior.Cascade);
 
         }
-        public DbSet<Produto> Produtos { get; set; } = null!; 
+        public DbSet<Produto> Produtos { get; set; } = null!;
         public DbSet<Categoria> Categorias { get; set; } = null!;
-   
+
+        public class DateOnlyConverter : ValueConverter<DateOnly, DateTime>
+        {
+            public DateOnlyConverter()
+                : base(dateOnly =>
+                        dateOnly.ToDateTime(TimeOnly.MinValue),
+                    dateTime => DateOnly.FromDateTime(dateTime))
+            { }
+        }
+
+        protected override void ConfigureConventions(ModelConfigurationBuilder builder)
+        {
+
+            builder.Properties<DateOnly>()
+                .HaveConversion<DateOnlyConverter>()
+                .HaveColumnType("date");
+
+            base.ConfigureConventions(builder);
+
+
+        }
     }
-}
+ 
+}  

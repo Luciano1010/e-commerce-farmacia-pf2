@@ -34,6 +34,11 @@ namespace e_commerce_farmacia_pf2.Model
         public string Foto { get; set; } = string.Empty;
 
 
+        [Column(TypeName = "Date")]
+
+        public DateOnly? Data { get; set; }
+
+
         public virtual Categoria? Categoria { get; set; }
 
     }

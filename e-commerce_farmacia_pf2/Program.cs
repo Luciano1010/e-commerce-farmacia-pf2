@@ -20,7 +20,7 @@ namespace e_commerce_farmacia_pf2
             builder.Services.AddControllers()
              .AddNewtonsoftJson(options =>
               {
-                  options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore; // evita ficar no loop infinito
+                  options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore; 
                   options.SerializerSettings.NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore;
               }); // ele fornece todos os recursos para criação das classes controladoras
                   // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
@@ -33,10 +33,10 @@ namespace e_commerce_farmacia_pf2
             builder.Services.AddDbContext<AppDbContext>(options =>
             options.UseSqlServer(connecetionString));
 
-            builder.Services.AddTransient<IValidator<Produto>, ProdutoValidator>(); // transiente ele guarda informações somente quando aplicação estiver funcionando
+            builder.Services.AddTransient<IValidator<Produto>, ProdutoValidator>(); 
             builder.Services.AddTransient<IValidator<Categoria>, CategoriaValidator>();
 
-            builder.Services.AddScoped<IProdutoService, ProdutoService>(); // scoped ele guarda mesmo que aplicação fecha
+            builder.Services.AddScoped<IProdutoService, ProdutoService>(); 
             builder.Services.AddScoped<ICategoriaService, CategoriasService>();
 
 
@@ -65,7 +65,7 @@ namespace e_commerce_farmacia_pf2
 
 
 
-            using (var scope = app.Services.CreateAsyncScope()) // CreateasyScope cria o banco de dados e as tabelas e consulta os contextos
+            using (var scope = app.Services.CreateAsyncScope()) 
             {
                 var dbContext = scope.ServiceProvider.GetRequiredService<AppDbContext>();
                 dbContext.Database.EnsureCreated();
