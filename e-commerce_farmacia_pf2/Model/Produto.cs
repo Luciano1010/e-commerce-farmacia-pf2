@@ -33,5 +33,8 @@ namespace e_commerce_farmacia_pf2.Model
         [StringLength(5000)]
         public string Foto { get; set; } = string.Empty;
 
+
+        public virtual Categoria? Categoria { get; set; }
+
     }
 }

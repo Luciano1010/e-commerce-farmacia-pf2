@@ -6,8 +6,8 @@ using Microsoft.AspNetCore.Mvc;
 namespace e_commerce_farmacia_pf2.Controllers
 {
     [Route("~/produtos")]
-
     [ApiController]
+
     public class ProdutoController : ControllerBase
     {
         private readonly IProdutoService _produtoService;

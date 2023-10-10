@@ -17,11 +17,16 @@ namespace e_commerce_farmacia_pf2
 
             // Add services to the container.
 
-            builder.Services.AddControllers();
-            // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
+            builder.Services.AddControllers()
+             .AddNewtonsoftJson(options =>
+              {
+                  options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore; // evita ficar no loop infinito
+                  options.SerializerSettings.NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore;
+              }); // ele fornece todos os recursos para criação das classes controladoras
+                  // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 
 
-           
+
             // Conexão com o banco de Dados
             var connecetionString = builder.Configuration
                .GetConnectionString("DefaultConnection");
@@ -29,10 +34,10 @@ namespace e_commerce_farmacia_pf2
             options.UseSqlServer(connecetionString));
 
             builder.Services.AddTransient<IValidator<Produto>, ProdutoValidator>(); // transiente ele guarda informações somente quando aplicação estiver funcionando
-          //  builder.Services.AddTransient<IValidator<Categoria>, CategoriaValidator>();
+            builder.Services.AddTransient<IValidator<Categoria>, CategoriaValidator>();
 
             builder.Services.AddScoped<IProdutoService, ProdutoService>(); // scoped ele guarda mesmo que aplicação fecha
-           
+            builder.Services.AddScoped<ICategoriaService, CategoriasService>();
 
 
             builder.Services.AddEndpointsApiExplorer();
